@@ -17,9 +17,9 @@ namespace CreatePersona
                 return;
             }
 
+            Persona myPerson = new Persona();
             while (!isDone)
             {
-                Persona myPerson = new Persona();
                 Console.WriteLine("Ottimo. Scrivi di seguito nome, cognome ed età della persona che desideri creare");
 
 
@@ -40,12 +40,12 @@ namespace CreatePersona
                 }
 
                 isCorrect = false;
+                Console.WriteLine("Ora inserisci il cognome.");
                 while (!isCorrect)
                 {
                     Console.Write("Cognome: ");
                     myPerson.Cognome = Console.ReadLine();
-                    }
-                    if(myPerson.Nome.Length < 2)
+                    if (myPerson.Cognome.Length < 2)
                     {
                         Console.WriteLine("Il cognome della persona deve essere almeno di due caratteri");
                         Console.WriteLine("Per piacere, inserisci un cognome valido");
@@ -56,21 +56,36 @@ namespace CreatePersona
                     }
                 }
 
-
-                Console.Write("Eta: ");
-                string myAge = Console.ReadLine();
-                myPerson.Eta = int.Parse(myAge);
+                isCorrect = false;
+                while (!isCorrect)
+                {
+                    Console.Write("Eta: ");
+                    string myAge = Console.ReadLine();
+                    myPerson.Eta = int.Parse(myAge);
+                    if(myPerson.Eta < 0)
+                    {
+                        Console.WriteLine("La tua persona non può avere meno di 0 anni.");
+                        Console.WriteLine("Per piacere, inserisci un età valida: ");
+                    }
+                    else
+                    {
+                        isCorrect = true;
+                    }
+                }
 
                 Console.WriteLine("La persona che hai creato è: ");
                 Console.WriteLine(myPerson.GetDettagli());
+
                 Console.WriteLine("Vuoi creare un'altra persona?");
-                string answer = Console.ReadLine();
+                string answer = Console.ReadLine().ToLower();
                 if (answer == "no")
                 {
                     isDone = true;
                 }
-
             }
+
+
+
 
             isDone = false;
             Console.WriteLine("Ok ora creo io una persona.");
@@ -85,7 +100,7 @@ namespace CreatePersona
                 Console.WriteLine("La persona creata è:");
                 Console.WriteLine(otherPerson.GetDettagli());
                 Console.WriteLine("Vuoi creare un'altra persona?");
-                string answer = Console.ReadLine();
+                string answer = Console.ReadLine().ToLower();
                 if (answer == "no")
                 {
                     isDone = true;
@@ -98,6 +113,7 @@ namespace CreatePersona
             }
         }
     }
+
 
     public class Persona
     {
